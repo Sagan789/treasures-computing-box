@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% set cases = 12/(clocks|length) %}
+            {% for clock in clocks %}
+            <div class="col-xs-{{ cases }}">
+                {{ include('clocks/partials/clock.html.twig', { 'clock': clock }) }}
+            </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
+{% endblock content %}
