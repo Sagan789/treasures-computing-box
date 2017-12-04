@@ -4,10 +4,12 @@
     "require": {
         "php": "^7.0.8",
         "components/jquery": "3.*",
+        "components/jqueryui": "^1.12",
         "sensio/framework-extra-bundle": "^5.1",
         "symfony/asset": "^3.4",
         "symfony/console": "^3.4",
         "symfony/flex": "^1.0",
+        "symfony/form": "^3.4",
         "symfony/framework-bundle": "^3.4",
         "symfony/lts": "^3",
         "symfony/twig-bundle": "^3.4",
@@ -44,14 +46,16 @@
             "cp vendor/twbs/bootstrap/dist/css/bootstrap.css public/css/",
             "cp vendor/twbs/bootstrap/dist/fonts/* public/fonts/",
             "cp vendor/twbs/bootstrap/dist/js/bootstrap.js public/js/",
-            "cp vendor/components/jquery/jquery.slim.js public/js/"
+            "cp vendor/components/jquery/jquery.min.js public/js/",
+            "cp vendor/components/jqueryui/jquery-ui.min.js public/js/"
         ],
         "post-update-cmd": [
             "@auto-scripts",
             "cp vendor/twbs/bootstrap/dist/css/bootstrap.css public/css/",
             "cp vendor/twbs/bootstrap/dist/fonts/* public/fonts/",
             "cp vendor/twbs/bootstrap/dist/js/bootstrap.js public/js/",
-            "cp vendor/components/jquery/jquery.slim.js public/js/"
+            "cp vendor/components/jquery/jquery.min.js public/js/",
+            "cp vendor/components/jqueryui/jquery-ui.min.js public/js/"
         ]
     },
     "conflict": {

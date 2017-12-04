@@ -11,6 +11,9 @@ namespace App\Model;
 
 class Clock
 {
+
+    const ORIGIN_TIME_ZONE = 'Europe/London';
+
     /**
      * @var string
      */
@@ -40,8 +43,14 @@ class Clock
      */
     private $formatted_time;
 
+    /**
+     * @var integer
+     */
+    private $offset;
 
-    function __construct(string $time_zone, string $country, string $city){
+
+    function __construct(string $time_zone, string $country, string $city)
+    {
         $this->time_zone = $time_zone;
         $this->country = $country;
         $this->city = $city;
@@ -49,6 +58,11 @@ class Clock
         $tz_object = new \DateTimeZone($this->time_zone);
         $datetime = new \DateTime();
         $datetime->setTimezone($tz_object);
+
+        $origin_dtz = new \DateTimeZone(Clock::ORIGIN_TIME_ZONE);
+        $origin_dt = new \DateTime("now", $origin_dtz);
+
+        $this->offset = $tz_object->getOffset($datetime) - $origin_dtz->getOffset($origin_dt);
 
         $this->formatted_date = $datetime->format($this->date_format);
         $this->formatted_time = $datetime->format($this->time_format);
@@ -150,6 +164,26 @@ class Clock
     {
         $this->time_format = $time_format;
     }
+
+    /**
+     * @return int
+     */
+    public function getOffset(): int
+    {
+        return $this->offset;
+    }
+
+
+    /**
+     * @return string
+     */
+    public function getFormattedOffset(): string
+    {
+        $offset = ($this->offset / 3600);
+        return $offset > 0 ? '+ '.  $offset : $offset ;
+    }
+
+
 
 
 
