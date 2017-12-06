@@ -12,7 +12,7 @@ namespace App\Model;
 class Clock
 {
 
-    const ORIGIN_TIME_ZONE = 'Europe/London';
+    const TIME_ZONE_REFERENCE = 'Europe/London';
 
     /**
      * @var string
@@ -35,20 +35,21 @@ class Clock
      */
     private $time_format = 'H:i:s';
     /**
-     * @var string
-     */
-    private $formatted_date;
-    /**
-     * @var string
-     */
-    private $formatted_time;
-
-    /**
      * @var integer
      */
     private $offset;
 
+    /**
+     * @var \DateTime
+     */
+    private $datetime;
 
+    /**
+     * Clock constructor.
+     * @param string $time_zone
+     * @param string $country
+     * @param string $city
+     */
     function __construct(string $time_zone, string $country, string $city)
     {
         $this->time_zone = $time_zone;
@@ -56,16 +57,39 @@ class Clock
         $this->city = $city;
 
         $tz_object = new \DateTimeZone($this->time_zone);
-        $datetime = new \DateTime();
-        $datetime->setTimezone($tz_object);
+        $this->datetime = new \DateTime();
+        $this->datetime->setTimezone($tz_object);
 
-        $origin_dtz = new \DateTimeZone(Clock::ORIGIN_TIME_ZONE);
+        $origin_dtz = new \DateTimeZone(Clock::TIME_ZONE_REFERENCE);
         $origin_dt = new \DateTime("now", $origin_dtz);
 
-        $this->offset = $tz_object->getOffset($datetime) - $origin_dtz->getOffset($origin_dt);
+        $this->offset = $tz_object->getOffset($this->datetime) - $origin_dtz->getOffset($origin_dt);
+    }
 
-        $this->formatted_date = $datetime->format($this->date_format);
-        $this->formatted_time = $datetime->format($this->time_format);
+
+    /**
+     * @return void
+     */
+    public function update()
+    {
+        $this->datetime = new \DateTime("now");
+    }
+
+    /**
+     * @param int $hour
+     * @param int $minute
+     * @return string
+     */
+    public function convertToReferenceTime(string $remote_tz, int $hour, int $minute): string
+    {
+        $remote_dtz = new \DateTimeZone($remote_tz);
+        $remoteTime = new \DateTime("now", $remote_dtz);
+        $remoteTime->setTime($hour, $minute);
+
+        $origin_dtz = new \DateTimeZone(Clock::TIME_ZONE_REFERENCE);
+        $remoteTime->setTimezone($origin_dtz);
+
+        return $remoteTime->format($this->time_format);
     }
 
     /**
@@ -73,7 +97,7 @@ class Clock
      */
     public function getFormattedDate(): string
     {
-        return $this->formatted_date;
+        return $this->datetime->format($this->date_format);;
     }
 
     /**
@@ -81,7 +105,7 @@ class Clock
      */
     public function getFormattedTime(): string
     {
-        return $this->formatted_time;
+        return $this->datetime->format($this->time_format);
     }
 
 

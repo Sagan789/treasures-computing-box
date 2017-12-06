@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <div class="center-block">
+    <div class="tt_form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+        {{ form_end(form) }}
+    </div>
+    <table id="timetable">
+        {% for row in rows %}
+         <tr class="tt_row">
+            {% for col in cols %}
+                {% set firstclass = '' %}
+                {% if (col == 1 or row == 1) %}
+                    {% set firstclass = 'first' %}
+                {% endif %}
+            <td class="tt_col {{ firstclass }}" onmouseover="" onmouseout=""> {{ row * col }} </td>
+            {% endfor %}
+         </tr>
+        {% endfor %}
+    </table>
+
+    </div>
+{% endblock content %}

@@ -1,0 +1,13 @@
+default_clocks:
+  'New Zealand':
+    time_zone: Pacific/Auckland
+    city: Auckland
+    country: New Zealand
+  'United Kingdom':
+    time_zone: Europe/London
+    city: London
+    country: United Kingdom
+  'Canada BC':
+    time_zone: America/Vancouver
+    city: Vancouver
+    country: Canada

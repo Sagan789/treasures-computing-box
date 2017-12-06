@@ -10,6 +10,7 @@ namespace App\Controller;
 
 use App\Form\MeetingFormType;
 use App\Model\Clock;
+use App\Model\MeetingTime;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,6 +24,14 @@ class ClockController extends Controller
     */
     public function favouriteClocks(Request $request)
     {
+       /* $this->getParameter('default_clocks');
+        $clocks = [];
+        foreach ($clocks as $c) {
+            array_push($clocks, new Clock($c->get('time_zone'), $c->get('country'), $c->get('city')));
+        }
+
+        $clock_UK = new Clock("Europe/London", "United Kingdom", "London");
+*/
 
         $clock_NZ = new Clock("Pacific/Auckland", "New Zealand", "Auckland");
         $clock_UK = new Clock("Europe/London", "United Kingdom", "London");
@@ -30,11 +39,23 @@ class ClockController extends Controller
 
         $clocks = array($clock_NZ, $clock_UK, $clock_CA);
 
-        $form = $this->createForm(MeetingFormType::class);
+        $meetingTime = new MeetingTime("Europe/London");
+        $form = $this->createForm(MeetingFormType::class, $meetingTime);
 
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData());die;
+            $convertedTime = $clock_UK->convertToReferenceTime("Pacific/Auckland",$meetingTime->getHour(), $meetingTime->getMinute());
+            return $this->render('clocks/clocks.html.twig', [
+                'clocks' => $clocks,
+                'convertedTime' => $convertedTime,
+                'meetingForm' => $form->createView()
+            ]);
+        }
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors() as $err) {
+                $this->addFlash('error', $err->getMessage());
+            }
         }
 
         return $this->render('clocks/clocks.html.twig', [
