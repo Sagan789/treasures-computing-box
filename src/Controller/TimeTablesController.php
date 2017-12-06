@@ -17,7 +17,7 @@ class TimeTablesController extends Controller
 {
 
     /**
-     * @Route("/timetables/index", name="timetables")
+     * @Route("/math/timetables", name="timetables")
      */
     public function indexAction(Request $request)
     {
