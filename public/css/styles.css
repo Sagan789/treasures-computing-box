@@ -6,51 +6,7 @@ body {
 	padding-top: 70px;
 }
 
-.clock {
-	border: 1px black solid;
-	margin: 10px;
-	padding: 10px;
-	border-radius: 25px;
-}
 
-.time {
-	font-family: 'Orbitron', sans-serif;
-	font-size: 2em;
-	text-align: center;
-}
-
-.city {
-	font-size: 1.5em;
-	text-align: right;
-}
-
-.date_meeting {
-	margin-bottom: 10px;
-}
-.date_meeting .form-group {
-	display: inline;
-}
-
-.date_meeting .form-group label {
-	width: 70px;
-	padding-left: 10px;
-}
-.time_meeting {
-	margin-bottom: 10px;
-}
-.time_meeting .form-group {
-	display: inline;
-}
-
-.time_meeting .form-group label {
-	width: 70px;
-	padding-left: 10px;
-}
-
-.datetimeselect {
-	width: 80px;
-	display: inline;
-}
 /**  Time Table **/
 #timetable {
 	border: 1px solid black;

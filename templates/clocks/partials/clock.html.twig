@@ -1,6 +1,6 @@
-<div class="clock">
+<div id="clock_{{ clock.city }}" class="clock">
     <div class="city"><span class="glyphicon glyphicon-time"></span> {{ clock.city }}</div>
-    <div class="time">{{ clock.formattedTime }}</div>
+    <div id="time_{{ clock.city }}" class="time">{{ clock.formattedTime }}</div>
     <div class="date">{{ clock.formattedDate }}</div>
     <div class="offset">Offset {{ clock.formattedOffset }}</div>
     <div class="country">{{ clock.country }}</div>

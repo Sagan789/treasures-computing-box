@@ -203,8 +203,7 @@ class Clock
      */
     public function getFormattedOffset(): string
     {
-        $offset = ($this->offset / 3600);
-        return $offset > 0 ? '+ '.  $offset : $offset ;
+        return ($this->offset / 3600);
     }
 
 

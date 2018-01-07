@@ -9,7 +9,7 @@
 namespace App\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
-
+use \Datetime;
 
 class MeetingTime
 {
@@ -18,6 +18,12 @@ class MeetingTime
      * @var string
      */
     private $time_zone;
+
+    /**
+     * @Assert\DateTime()
+     * @var DateTime
+     */
+    private $dateForMeeting;
 
     /**
      * @Assert\NotBlank()
@@ -92,5 +98,23 @@ class MeetingTime
     {
         $this->time_zone = $time_zone;
     }
+
+    /**
+     * @return DateTime
+     */
+    public function getDateForMeeting()
+    {
+        return $this->dateForMeeting;
+    }
+
+    /**
+     * @param DateTime $dateForMeeting
+     */
+    public function setDateForMeeting(DateTime $dateForMeeting)
+    {
+        $this->dateForMeeting = $dateForMeeting;
+    }
+
+
 
 }

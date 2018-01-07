@@ -12,6 +12,7 @@ use App\Model\MeetingTime;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
@@ -22,16 +23,23 @@ class MeetingFormType extends AbstractType
     {
 
         $builder
-            ->add('timezone', TextType::class, [
-                'attr' => ['class' => 'datetimeselect'],
+            ->add('timezone', ChoiceType::class, [
+                'choices' => $this->availableTimeZone(),
+                'attr' => ['class' => 'datetimeselect timezone'],
+                'label'=> 'Time Zone',
+            ])
+            ->add('dateForMeeting', DateType::class, [
+                'label'=> 'Day',
             ])
             ->add('hour', ChoiceType::class, [
                 'choices' => range(0,23),
                 'attr' => ['class' => 'datetimeselect'],
+                'label'=> 'Hour',
             ])
             ->add('minute', ChoiceType::class, [
                 'choices' => array('0'=>0,'30'=>30),
                 'attr' => ['class' => 'datetimeselect'],
+                'label'=> 'Min',
             ]);
     }
 
@@ -42,4 +50,17 @@ class MeetingFormType extends AbstractType
             'data_class' => MeetingTime::class
         ]);
     }
+
+    public function availableTimeZone() : array
+    {
+        $tz = [
+            'America/Vancouver' => 'America/Vancouver',
+            'America/Toronto' =>'America/Toronto',
+            'Pacific/Auckland' =>'Pacific/Auckland',
+            'Europe/London' => 'Europe/London',
+        ];
+        return $tz;
+
+    }
+
 }

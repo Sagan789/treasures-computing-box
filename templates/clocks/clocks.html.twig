@@ -2,19 +2,12 @@
 
 {% block stylesheets %}
     {{ parent() }}
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.0/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="{{ asset('/css/clock.css') }}">
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment-with-locales.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
-    <script type="text/javascript">
-        $('#datetimepicker').datetimepicker({
-            locale: 'en',
-            useCurrent: false,
-            sideBySide: true
-        });
-    </script>
+
+    <script type="text/javascript" src="{{ asset('/js/clock.js') }}"></script>
 {% endblock %}
 
 {% block content %}
@@ -28,22 +21,25 @@
 
             <div class="row">
                 <div class="col-xs-6">
-            {{ form_start(meetingForm) }}
-                    <div class="time_meeting">
-                    {{ form_row(meetingForm.hour) }}
-                    {{ form_row(meetingForm.minute) }}
-                    </div>
-            {{ form_widget(meetingForm) }}
-            <button type="submit" class="btn btn-primary">Convert</button>
-            {{ form_end(meetingForm) }}
+                {{ form_start(meetingForm) }}
+                    {{ form_widget(meetingForm) }}
+                    <button type="submit" class="btn btn-primary">Convert</button>
+                {{ form_end(meetingForm) }}
                 </div>
                 <div class="col-xs-6">
                     <div class="convertedTime">
+                        Local Time :
                     {% if convertedTime is defined %}
                         {{ convertedTime }}
                     {% endif %}
                     </div>
-                </div>>
+                </div>
+
             </div>
         </div>
+    <script type="text/javascript">
+        {% for clock in clocks %}
+        initClock('{{ clock.city }}', {{ clock.formattedOffset }});
+        {% endfor %}
+    </script>
 {% endblock content %}

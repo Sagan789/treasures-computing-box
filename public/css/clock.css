@@ -1,0 +1,26 @@
+.clock {
+    border: 1px black solid;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.time {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 2em;
+    text-align: center;
+}
+
+.city {
+    font-size: 1.5em;
+    text-align: right;
+}
+
+.date_meeting {
+    margin-bottom: 10px;
+}
+.convertedTime {
+    font-size: 2em;
+    min-height: 200px;
+    vertical-align: middle;
+}
