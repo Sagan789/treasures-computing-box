@@ -76,20 +76,21 @@ class Clock
     }
 
     /**
+     * Convert a time from a time zone to another, using Europe/London as reference if none provided
      * @param int $hour
      * @param int $minute
      * @return string
      */
-    public function convertToReferenceTime(string $remote_tz, int $hour, int $minute): string
+    public function convertTime(string $remote_tz, int $hour, int $minute, string $reference_tz = Clock::TIME_ZONE_REFERENCE): string
     {
         $remote_dtz = new \DateTimeZone($remote_tz);
         $remoteTime = new \DateTime("now", $remote_dtz);
         $remoteTime->setTime($hour, $minute);
 
-        $origin_dtz = new \DateTimeZone(Clock::TIME_ZONE_REFERENCE);
+        $origin_dtz = new \DateTimeZone($reference_tz);
         $remoteTime->setTimezone($origin_dtz);
 
-        return $remoteTime->format($this->time_format);
+        return $reference_tz.' '.$remoteTime->format($this->time_format);
     }
 
     /**

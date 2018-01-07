@@ -9,6 +9,7 @@
 namespace App\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+
 use \Datetime;
 
 class MeetingTime
@@ -26,29 +27,41 @@ class MeetingTime
     private $dateForMeeting;
 
     /**
-     * @Assert\NotBlank()
-     * @Assert\Range(min=0, minMessage="Negative hours! Come on...")
-     * @Assert\Range(max=23, maxMessage="Only 24 hours a day...")
-     * @Assert\Type(
-     *     type="integer",
-     *     message="The value {{ value }} is not a valid {{ type }}."
      * @var integer
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
+     * @Assert\Range(
+     *     min=0,
+     *     max=23,
+     *     minMessage="Negative hours! Come on...",
+     *     maxMessage="Only 24 hours a day..."
+     * )
+     *
      */
     private $hour;
+
     /**
-     * @Assert\NotBlank()
-     * @Assert\Range(min=0, minMessage="Negative minutes! Come on...")
-     * @Assert\Range(max=59, maxMessage="Only 59 minutes per hour...")
-     * @Assert\Type(
-     *     type="integer",
-     *     message="The value {{ value }} is not a valid {{ type }}."
      * @var integer
+     *
+     * @Assert\NotBlank()
+     * @Assert\Type(type="integer", message="The value {{ value }} is not a valid {{ type }}.")
+     * @Assert\Range(
+     *     min=0,
+     *     max=59,
+     *     minMessage="Negative minutes! Come on...",
+     *     maxMessage="Only 59 minutes per hour..."
+     * )
+     *
      */
     private $minute;
+
+
 
     function __construct(string $time_zone)
     {
         $this->time_zone = $time_zone;
+        $this->dateForMeeting = new \DateTime("now", new \DateTimeZone($time_zone));
     }
 
     /**

@@ -5,6 +5,7 @@ framework:
     #http_method_override: true
     #translator:      { fallbacks: ["%locale%"] }
     # uncomment this entire section to enable sessions
+    validation: { enabled: true }
     session:
         # With this config, PHP's native session handling is used
         handler_id: ~

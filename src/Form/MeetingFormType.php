@@ -15,6 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 class MeetingFormType extends AbstractType
@@ -30,14 +31,13 @@ class MeetingFormType extends AbstractType
             ])
             ->add('dateForMeeting', DateType::class, [
                 'label'=> 'Day',
+                'widget' => 'single_text',
             ])
-            ->add('hour', ChoiceType::class, [
-                'choices' => range(0,23),
+            ->add('hour', IntegerType::class, [
                 'attr' => ['class' => 'datetimeselect'],
                 'label'=> 'Hour',
             ])
-            ->add('minute', ChoiceType::class, [
-                'choices' => array('0'=>0,'30'=>30),
+            ->add('minute', IntegerType::class, [
                 'attr' => ['class' => 'datetimeselect'],
                 'label'=> 'Min',
             ]);

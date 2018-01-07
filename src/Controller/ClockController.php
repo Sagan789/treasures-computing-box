@@ -45,18 +45,19 @@ class ClockController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $convertedTime = $clock_UK->convertToReferenceTime("Pacific/Auckland",$meetingTime->getHour(), $meetingTime->getMinute());
+            $convertedTime = $clock_UK->convertTime($meetingTime->getTimeZone(), $meetingTime->getHour(), $meetingTime->getMinute());
             return $this->render('clocks/clocks.html.twig', [
                 'clocks' => $clocks,
                 'convertedTime' => $convertedTime,
                 'meetingForm' => $form->createView()
             ]);
         }
+        /*
         if ($form->isSubmitted() && !$form->isValid()) {
             foreach ($form->getErrors() as $err) {
                 $this->addFlash('error', $err->getMessage());
             }
-        }
+        }*/
 
         return $this->render('clocks/clocks.html.twig', [
             'clocks' => $clocks,
