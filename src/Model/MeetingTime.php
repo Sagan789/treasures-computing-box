@@ -9,6 +9,7 @@
 namespace App\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Model\Clock;
 
 use \Datetime;
 
@@ -19,6 +20,12 @@ class MeetingTime
      * @var string
      */
     private $time_zone;
+
+    /**
+     * @Assert\NotBlank()
+     * @var string
+     */
+    private $dest_time_zone;
 
     /**
      * @Assert\DateTime()
@@ -62,6 +69,7 @@ class MeetingTime
     {
         $this->time_zone = $time_zone;
         $this->dateForMeeting = new \DateTime("now", new \DateTimeZone($time_zone));
+        $this->dest_time_zone = Clock::TIME_ZONE_REFERENCE;
     }
 
     /**
@@ -127,6 +135,24 @@ class MeetingTime
     {
         $this->dateForMeeting = $dateForMeeting;
     }
+
+    /**
+     * @return string
+     */
+    public function getDestTimeZone()
+    {
+        return $this->dest_time_zone;
+    }
+
+    /**
+     * @param string $dest_time_zone
+     */
+    public function setDestTimeZone(string $dest_time_zone)
+    {
+        $this->dest_time_zone = $dest_time_zone;
+    }
+
+
 
 
 

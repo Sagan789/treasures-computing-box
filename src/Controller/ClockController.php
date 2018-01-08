@@ -45,7 +45,7 @@ class ClockController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $convertedTime = $clock_UK->convertTime($meetingTime->getTimeZone(), $meetingTime->getHour(), $meetingTime->getMinute());
+            $convertedTime = $clock_UK->convertTime($meetingTime->getTimeZone(), $meetingTime->getHour(), $meetingTime->getMinute(), $meetingTime->getDestTimeZone());
             return $this->render('clocks/clocks.html.twig', [
                 'clocks' => $clocks,
                 'convertedTime' => $convertedTime,

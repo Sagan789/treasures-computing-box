@@ -27,7 +27,12 @@ class MeetingFormType extends AbstractType
             ->add('timezone', ChoiceType::class, [
                 'choices' => $this->availableTimeZone(),
                 'attr' => ['class' => 'datetimeselect timezone'],
-                'label'=> 'Time Zone',
+                'label'=> 'Time Zone Source',
+            ])
+            ->add('dest_timezone', ChoiceType::class, [
+                'choices' => $this->availableTimeZone(),
+                'attr' => ['class' => 'datetimeselect timezone'],
+                'label'=> 'Time Zone For Conversion',
             ])
             ->add('dateForMeeting', DateType::class, [
                 'label'=> 'Day',
@@ -58,6 +63,8 @@ class MeetingFormType extends AbstractType
             'America/Toronto' =>'America/Toronto',
             'Pacific/Auckland' =>'Pacific/Auckland',
             'Europe/London' => 'Europe/London',
+            'America/New_York' => 'America/New_York'
+
         ];
         return $tz;
 
