@@ -1,3 +1,7 @@
 # treasures-computing-box
 
-Handy widgets like Meeting time converter per location.
+Collection of mini applications to learn Symfony.
+- Time timezone converter
+- Pi decimals calculation
+- Time tables display 
+
