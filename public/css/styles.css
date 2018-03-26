@@ -13,9 +13,9 @@ body {
 	margin: 50px auto;
 }
 .tt_col {
-	min-width: 40px;
+	min-width: 60px;
 	text-align: center;
-	font-size: 1.2em;
+	font-size: 2em;
 	border: solid 1px black;
 }
 .first {
